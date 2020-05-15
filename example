@@ -1,0 +1,30 @@
+<script type='text/javascript'>
+    $(document).ready(function() {
+
+    var str= 'Avengers Infinity War';
+    var splitted = str.split(' ');
+    var first = splitted[0]; //get first word
+    var second = splitted[1]; //get second word
+    var searchp = first + ' ' + second;
+
+    $.ajax({
+    method: "GET",
+    dataType: "jsonP",
+    url: 'https://en.wikipedia.org/w/api.php?action=query&list=search&srwhat=text&format=json&srprop=snippet&srsearch='+searchp,
+
+    success: function(response) {
+    var s = response.query.search
+    var snippetEl = "";
+    console.log(s)
+    $.each(s, function(index, el) {
+    snippetEl += el.snippet;
+    })
+    $("#WikipediaAPI").html(snippetEl);
+
+    }
+    });
+
+    });
+  </script>
+
+<div id='WikipediaAPI'></div>
